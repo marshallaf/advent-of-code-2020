@@ -6,12 +6,12 @@ fun main() {
     challengeB(inputFile)
 }
 
-fun challengeA(inputFile: File) {
+private fun challengeA(inputFile: File) {
     val validPasswords = inputFile.readLines { PasswordA.parse(it) }.filter { it.isValid() }.count()
     println(validPasswords)
 }
 
-fun challengeB(inputFile: File) {
+private fun challengeB(inputFile: File) {
     val validPasswords = inputFile.readLines { PasswordB.parse(it) }.filter { it.isValid() }.count()
     println(validPasswords)
 }

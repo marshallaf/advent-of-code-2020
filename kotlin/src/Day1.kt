@@ -7,7 +7,7 @@ fun main() {
     challengeB(lines)
 }
 
-fun challengeA(lines: List<Int>) {
+private fun challengeA(lines: List<Int>) {
     val sorted = lines.sorted()
     for ((index1, number1) in sorted.withIndex()) {
         val numberToMatch = 2020 - number1
@@ -20,7 +20,7 @@ fun challengeA(lines: List<Int>) {
     }
 }
 
-fun challengeB(lines: List<Int>) {
+private fun challengeB(lines: List<Int>) {
     val sorted = lines.sorted()
     outer@ for ((index1, number1) in sorted.withIndex()) {
         // ignore any that are too large, assuming zero isn't valid
