@@ -8,7 +8,6 @@ fun main() {
     val lines = file.readLines { it }.toList()
     val passportsSerialized = mutableListOf("")
     var index = 0
-    lines.spliterator()
     lines.forEach {
         if (it.isBlank()) {
             passportsSerialized[index] = passportsSerialized[index].trim()
