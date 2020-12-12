@@ -2,19 +2,20 @@ import util.readLines
 import java.io.File
 
 fun main() {
-    val file = File("res/day3/input.txt")
-//    val file = File("res/day3/test-input-0.txt")
+    val file = File("res/day03/input.txt")
+//    val file = File("res/day03/test-input-0.txt")
+    challengeA(file)
     challengeB(file)
 }
 
-private fun challengeA(file: File) {
+private fun challengeA(file: File) { // 262
     val slopeRight = 3
     val slopeDown = 1
     val numberOfTreesHit = traverseSlope(file, slopeRight, slopeDown)
     println("hit $numberOfTreesHit trees")
 }
 
-private fun challengeB(file: File) {
+private fun challengeB(file: File) { // 2698900776
     val slopes = listOf(
         1 to 1,
         3 to 1,

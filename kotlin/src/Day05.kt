@@ -3,20 +3,21 @@ import java.io.File
 import java.lang.IllegalArgumentException
 
 fun main() {
-    val file = File("res/day5/input.txt")
-//    val file = File("res/day5/test-input-0.txt")
-    val lines = file.readLines { BoardingPass.parse(it) }
+    val file = File("res/day05/input.txt")
+//    val file = File("res/day05/test-input-0.txt")
+    val lines = file.readLines { BoardingPass.parse(it) }.toList()
+    challengeA(lines)
     challengeB(lines)
 }
 
-private fun challengeA(lines: Sequence<BoardingPass>) { // 970
+private fun challengeA(lines: List<BoardingPass>) { // 970
     val maxId = lines.maxOf {
         it.seatId
     }
     println("The maximum seat id is $maxId.")
 }
 
-private fun challengeB(lines: Sequence<BoardingPass>) { // 587
+private fun challengeB(lines: List<BoardingPass>) { // 587
     var lastId = -1
     val mySeatId = lines.sortedBy {
         it.seatId

@@ -4,8 +4,8 @@ import kotlin.math.max
 import kotlin.math.min
 
 fun main() {
-    val file = File("res/day9/input.txt")
-//    val file = File("res/day9/test-input-0.txt")
+    val file = File("res/day09/input.txt")
+//    val file = File("res/day09/test-input-0.txt")
     val numbers = file.readLines { it.toLong() }.toList()
     val offender = challengeA(numbers, 25)
     println("Challenge A: the offending number is $offender.")

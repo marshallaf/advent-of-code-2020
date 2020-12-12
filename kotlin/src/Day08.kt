@@ -2,8 +2,9 @@ import util.readLines
 import java.io.File
 
 fun main() {
-    val file = File("res/day8/input.txt")
-//    val file = File("res/day8/test-input-0.txt")
+    val file = File("res/day08/input.txt")
+//    val file = File("res/day08/test-input-0.txt")
+    challengeA(file)
     challengeB(file)
 }
 

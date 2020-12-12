@@ -3,8 +3,8 @@ import java.io.File
 import java.lang.IndexOutOfBoundsException
 
 fun main() {
-    val file = File("res/day4/input.txt")
-//    val file = File("res/day4/test-input-mix.txt")
+    val file = File("res/day04/input.txt")
+//    val file = File("res/day04/test-input-mix.txt")
     val lines = file.readLines { it }.toList()
     val passportsSerialized = mutableListOf("")
     var index = 0
@@ -17,16 +17,17 @@ fun main() {
             passportsSerialized[index] += "$it "
         }
     }
+    challengeA(passportsSerialized)
     challengeB(passportsSerialized)
 }
 
-private fun challengeA(passportsSerialized: List<String>) {
+private fun challengeA(passportsSerialized: List<String>) { // 222
     countValidPassports(passportsSerialized) {
         it.containsAllFields
     }
 }
 
-private fun challengeB(passportsSerialized: List<String>) {
+private fun challengeB(passportsSerialized: List<String>) { // 140
     countValidPassports(passportsSerialized) {
         it.isValid
     }

@@ -2,12 +2,13 @@ import util.readLines
 import java.io.File
 
 fun main() {
-    val file = File("res/day1/input.txt")
+    val file = File("res/day01/input.txt")
     val lines = file.readLines { it.toInt() }.toList()
+    challengeA(lines)
     challengeB(lines)
 }
 
-private fun challengeA(lines: List<Int>) {
+private fun challengeA(lines: List<Int>) { // 1006176
     val sorted = lines.sorted()
     for ((index1, number1) in sorted.withIndex()) {
         val numberToMatch = 2020 - number1
@@ -20,7 +21,7 @@ private fun challengeA(lines: List<Int>) {
     }
 }
 
-private fun challengeB(lines: List<Int>) {
+private fun challengeB(lines: List<Int>) { // 199132160
     val sorted = lines.sorted()
     outer@ for ((index1, number1) in sorted.withIndex()) {
         // ignore any that are too large, assuming zero isn't valid

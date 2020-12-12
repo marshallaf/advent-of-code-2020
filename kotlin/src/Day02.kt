@@ -2,16 +2,17 @@ import util.readLines
 import java.io.File
 
 fun main() {
-    val inputFile = File("res/day2/test-input-0.txt")
+    val inputFile = File("res/day02/input.txt")
+    challengeA(inputFile)
     challengeB(inputFile)
 }
 
-private fun challengeA(inputFile: File) {
+private fun challengeA(inputFile: File) { // 586
     val validPasswords = inputFile.readLines { PasswordA.parse(it) }.filter { it.isValid() }.count()
     println(validPasswords)
 }
 
-private fun challengeB(inputFile: File) {
+private fun challengeB(inputFile: File) { // 352
     val validPasswords = inputFile.readLines { PasswordB.parse(it) }.filter { it.isValid() }.count()
     println(validPasswords)
 }

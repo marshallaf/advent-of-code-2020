@@ -5,6 +5,7 @@ fun main() {
     val file = File("res/day10/input.txt")
 //    val file = File("res/day10/test-input-0.txt")
 //    val file = File("res/day10/test-input-1.txt")
+    challengeA(file)
     challengeB(file)
 }
 
