@@ -75,7 +75,7 @@ private fun runToTermination(instructions: List<Instruction>): EndState {
     return EndState(accumulator, completed)
 }
 
-data class EndState(val accumulator: Int, val completed: Boolean)
+private data class EndState(val accumulator: Int, val completed: Boolean)
 
 private fun swapInstruction(currentIndex: Int, lastFoundIndex: Int, alreadySwapped: Boolean, instruction: Instruction): Instruction? {
     if (alreadySwapped || currentIndex <= lastFoundIndex || instruction.name == "acc") {
