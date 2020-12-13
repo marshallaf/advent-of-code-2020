@@ -205,3 +205,4 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,intellij,vscode,kotlin,rust
 
 **/.idea/misc.xml
+kotlin/.idea/uiDesigner.xml
