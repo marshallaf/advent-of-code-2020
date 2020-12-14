@@ -103,6 +103,7 @@ private fun challengeB2(file: File) { //
 
 // see https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
 // and https://en.wikipedia.org/wiki/Chinese_remainder_theorem
+// and https://brilliant.org/wiki/chinese-remainder-theorem/
 private fun challengeB3(file: File) { // 803025030761664
     val lines = file.readLines { it }.toList()
     val modEquations = lines[1].split(',')
@@ -111,40 +112,62 @@ private fun challengeB3(file: File) { // 803025030761664
                 return@mapIndexedNotNull null
             }
             val busNumber = busNumberSerial.toLong()
+            // what we're ultimately looking for is the solution to a system of
+            // equations with the pattern (t + busIndex) = 0 (mod busNumber)
+            // we can solve for t by changing each to t = -busIndex (mod busNumber)
+            // so we'll represent that as this ModEquation object
             ModEquation(-index.toLong(), busNumber)
         }
+    // bigN is the product of all the moduli
+    // the solution will be a congruence of something mod this product
     val bigN = modEquations.fold(1L) { acc, modEquation ->
         modEquation.n * acc
     }
-    println("bigN: $bigN") // check
-    val ys = modEquations.map {
+    println("product of busNumbers (bigN): $bigN") // check
+    // each of these bigN(i) is the product of all of the moduli except the one at i
+    val bigNis = modEquations.map {
         bigN / it.n
     }
-    println(ys) // check
-    val bezouts = ys.mapIndexed { index, y ->
-        extendedEuclid(modEquations[index].n, y)
+    println(bigNis)
+    // since all the busNumbers (n's) are coprime, we know that bigN(i) is coprime with n(i)
+    // therefore, their greatest common denominator is 1.
+    // given this, we apply Bezout's identity: there exists u(i) and v(i) such that
+    //      u(i) * n(i) + v(i) * bigN(i) = 1
+    // using Euclid's Extended algo to find u(i) and v(i)
+    val bezouts = bigNis.mapIndexed { index, bigNi ->
+        extendedEuclid(modEquations[index].n, bigNi)
     }
     println(bezouts)
+    // the key here is that we're looking for a solution for t ≡ a(i) (mod n(i)), for every i
+    // so t and a(i) have the same remainder when divided by n(i)
+    // this can be restated as t = k * n(i) + a(i)
+
+
+    // We care about the modular inverse of bigN(i) mod n(i) [bigN(i)^-1 mod n(i)].
+    // We're looking for the number [bigN(i) * v(i)] that results in the same remainder when divided by n
+    // as [1 divided by n] (aka 1).
+    // for each of these modular inverses v(i), multiply by bigN(i)
+    // and then by a(i), which in our case is the negative time offset from t
     val summands = bezouts.mapIndexed { index, bezout ->
-        bezout.second * ys[index] * modEquations[index].a
+        bezout.second * bigNis[index] * modEquations[index].a
     }
     println(summands)
     val sum = summands.sum()
-    var answer = sum
-    if (answer < 0) {
-        while (answer < 0) {
-            answer += bigN
-        }
-    } else {
-        while (answer > bigN) {
-            answer -= bigN
+    // the value for sum satisfies the equation, but recall that any congruence of modulo bigN will work,
+    // so find the lowest positive number that satisfies that congruence, that's our t
+    var t = sum % bigN
+    if (t < 0) {
+        while (t < 0) {
+            t += bigN
         }
     }
-    println("The earliest timestamp in which the busses leave consecutively is $answer.")
+    println("The earliest timestamp in which the busses leave consecutively is $t.")
 }
 
 private data class ModEquation(val a: Long, val n: Long)
 
+// https://math.stackexchange.com/questions/67969/linear-diophantine-equation-100x-23y-19/68021
+// https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 private fun extendedEuclid(a: Long, b: Long): Pair<Long, Long> {
     var oldR = a
     var r = b
